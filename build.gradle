@@ -1,0 +1,53 @@
+apply plugin: 'java'
+
+group = 'de.deverado.framework'
+// in settings: name (framework-json)
+version = '0.1-SNAPSHOT'
+description = 'deverado framework json serialization helpers - json serialization plugin support '
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+dependencies {
+
+    compile 'de.deverado.framework:framework-concurrent:0.1-SNAPSHOT'
+    compile 'de.deverado.framework:framework-guice:0.1-SNAPSHOT'
+
+    compile 'org.slf4j:slf4j-api:1.7.5'
+    compile 'com.google.code.findbugs:jsr305:2.0.0'
+
+    compile 'com.fasterxml.jackson.core:jackson-core:2.6.1'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.6.1'
+
+    // guava, commons lang, joda time
+    compile 'com.google.guava:guava:18.0'
+    compile 'org.apache.commons:commons-lang3:3.3.2' // use this for null checks, common string modifications etc
+
+    testCompile 'junit:junit:4.11'
+    testCompile 'org.mockito:mockito-core:1.+'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+apply plugin: 'maven-publish'
+task sourceJar(type: Jar) {
+    from sourceSets.main.allJava
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            
+            artifact sourceJar {
+                classifier "sources"
+            }
+        }
+    }
+}
+
+
+apply plugin: 'eclipse'
+apply plugin: 'idea'
