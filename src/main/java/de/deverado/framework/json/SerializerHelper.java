@@ -7,7 +7,7 @@ import com.google.common.io.Closeables;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
-import de.deverado.framework.core.ConfigUtil;
+import de.deverado.framework.core.ParsingUtil;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -44,7 +44,7 @@ public class SerializerHelper {
 
     @Inject
     public SerializerHelper(InjectionHelper injHelper) {
-        prettyPrint = ConfigUtil.parseAsBoolean(injHelper.prettyPrintStr);
+        prettyPrint = ParsingUtil.parseAsBoolean(injHelper.prettyPrintStr);
         if (injHelper.transformerPlugins != null) {
             this.transformerPlugins = injHelper.transformerPlugins;
         } else {
